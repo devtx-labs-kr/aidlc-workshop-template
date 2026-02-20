@@ -119,7 +119,6 @@ Create `aidlc-docs/construction/build-and-test/unit-test-instructions.md`:
 - **Expected**: [X] tests pass, 0 failures
 - **Test Coverage**: [Expected coverage percentage]
 - **Test Report Location**: [Path to test reports]
-- **If TDD**: Cross-reference with `{unit-name}-test-plan.md` for requirements coverage
 
 ### 3. Fix Failing Tests
 If tests fail:

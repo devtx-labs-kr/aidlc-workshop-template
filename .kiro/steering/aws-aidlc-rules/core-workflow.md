@@ -11,7 +11,9 @@ The AI model intelligently assesses what stages are needed based on:
 4. Risk and impact assessment
 
 ## MANDATORY: Rule Details Loading
-**CRITICAL**: When performing any phase, you MUST read and use relevant content from rule detail files in `.kiro/aws-aidlc-rule-details/` or `.amazonq/aws-aidlc-rule-details/` directory.
+**CRITICAL**: When performing any phase, you MUST read and use relevant content from rule detail files in `.aidlc-rule-details/` directory.
+
+This directory is used consistently across all platforms (Cline, Kiro CLI, Amazon Q, Cursor).
 
 **Common Rules**: ALWAYS load common rules at workflow start:
 - Load `common/process-overview.md` for workflow overview
@@ -40,7 +42,7 @@ The AI model intelligently assesses what stages are needed based on:
 **CRITICAL**: When starting ANY software development request, you MUST display the welcome message.
 
 **How to Display Welcome Message**:
-1. Load the welcome message from `.kiro/aws-aidlc-rule-details/common/welcome-message.md` or `.amazonq/aws-aidlc-rule-details/common/welcome-message.md`
+1. Load the welcome message from `.aidlc-rule-details/common/welcome-message.md`
 2. Display the complete message to the user
 3. This should only be done ONCE at the start of a new workflow
 4. Do NOT load this file in subsequent interactions to save context space
@@ -95,7 +97,7 @@ The AI model intelligently assesses what stages are needed based on:
 2. Load all steps from `inception/reverse-engineering.md`
 3. Execute reverse engineering:
    - Analyze all packages and components
-   - Generate a busienss overview of the whole system covering the business transactions
+   - Generate a business overview of the whole system covering the business transactions
    - Generate architecture documentation
    - Generate code structure documentation
    - Generate API documentation
@@ -365,19 +367,19 @@ The AI model intelligently assesses what stages are needed based on:
 **Step 0: TDD Selection (MANDATORY)**:
 Present TDD choice to user before proceeding:
 ```
-🧪 Code Generation 방식을 선택해주세요:
+🧪 Select your Code Generation approach:
 
-A) TDD 방식 (Test-Driven Development)
-   - 시간/토큰: 1.5~2배 소요
-   - 품질: 높음 (기능 누락 방지, 테스트 우선 설계)
-   - 권장: 복잡한 비즈니스 로직, 장기 유지보수 프로젝트
+A) TDD (Test-Driven Development)
+   - Time/Tokens: ~1.5-2x baseline
+   - Quality: High (prevents feature gaps, test-first design)
+   - Recommended: Complex business logic, long-term maintainable projects
 
-B) 일반 방식 (Standard)
-   - 시간/토큰: 기준
-   - 품질: 표준
-   - 권장: 간단한 프로토타입, 일회성 스크립트
+B) Standard
+   - Time/Tokens: Baseline
+   - Quality: Standard
+   - Recommended: Simple prototypes, one-off scripts
 
-[Answer]: 
+[Answer]:
 ```
 
 **Code Generation has two parts within one stage**:
@@ -389,9 +391,9 @@ B) 일반 방식 (Standard)
 2. **TDD Selection**: Present TDD choice, wait for user response (A or B)
 3. **If user chooses A (TDD)**: Load all steps from `construction/tdd-code-generation.md`
 4. **If user chooses B (Standard)**: Load all steps from `construction/code-generation.md`
-5. **PART 1 - Planning**: Create code generation plan (TDD or Standard based on choice)
+5. **PART 1 - Planning**: Create code generation plan (TDD or Standard based on choice) with checkboxes, get user approval
 6. **PART 2 - Generation**: Execute approved plan to generate code for this unit
-7. **MANDATORY**: Present standardized 2-option completion message - DO NOT use emergent behavior
+7. **MANDATORY**: Present standardized 2-option completion message as defined in code-generation.md - DO NOT use emergent behavior
 8. **Wait for Explicit Approval**: User must choose between "Request Changes" or "Continue to Next Stage" - DO NOT PROCEED until user confirms
 9. **MANDATORY**: Log user's response in audit.md with complete raw input
 

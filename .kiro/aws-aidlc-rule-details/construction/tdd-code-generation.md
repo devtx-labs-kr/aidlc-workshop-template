@@ -7,7 +7,7 @@ This stage generates code using Test-Driven Development for each unit of work th
 
 **Note**: For brownfield projects, "generate" means modify existing files when appropriate, not create duplicates.
 
-**Core Principle**: 각 기능마다 RED(실패하는 테스트) → GREEN(최소 구현) → REFACTOR(개선) 사이클을 반복하여 **기능 누락을 방지**하고 **높은 코드 품질**을 보장합니다.
+**Core Principle**: For each feature, iterate through the RED (failing test) → GREEN (minimal implementation) → REFACTOR (improve) cycle to **prevent feature gaps** and **ensure high code quality**.
 
 ## Prerequisites
 - Functional Design must be complete for the unit (if executed)
@@ -209,16 +209,16 @@ This stage generates code using Test-Driven Development for each unit of work th
 
 **Output Format**:
 ```
-Step 0: Contract Skeleton 생성 완료
+Step 0: Contract Skeleton Generation Complete
 
-생성된 파일:
+Generated files:
 - src/services/{service}.py ({ServiceName} skeleton)
 - src/api/{routes}.py (API endpoints skeleton)
 - src/repositories/{repo}.py ({RepoName} skeleton)
 
-컴파일 확인: ✓ 성공
+Compilation check: ✓ Success
 
-[x] Step 0 완료
+[x] Step 0 Complete
 ```
 
 ## Step 13: Execute TDD Cycle for Each Method
@@ -250,21 +250,21 @@ Step 0: Contract Skeleton 생성 완료
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 [RED] TC-{unit}-{num}: {test name}
-  테스트 작성: {test code snippet}
-  테스트 실행: FAILED ✗
-  ✓ 실패 확인됨
+  Test written: {test code snippet}
+  Test execution: FAILED ✗
+  ✓ Failure confirmed
 
-[GREEN] 최소 구현
-  구현: {implementation snippet}
-  테스트 실행: PASSED ✓
+[GREEN] Minimal implementation
+  Implementation: {implementation snippet}
+  Test execution: PASSED ✓
   [UPDATE] test-plan.md: TC-{unit}-{num} → 🟢 Passed
 
-[REFACTOR] 코드 개선
-  개선: {refactoring description}
+[REFACTOR] Code improvement
+  Improvement: {refactoring description}
 
-[VERIFY] 테스트 재실행: PASSED ✓
+[VERIFY] Test re-run: PASSED ✓
 
-[x] {ClassName}.{method_name}() 완료
+[x] {ClassName}.{method_name}() Complete
 ```
 
 ## Step 14: Update Progress After Each Method
@@ -306,14 +306,14 @@ After completing all methods in a layer:
 
      2. **TDD Summary** (mandatory): Provide TDD execution results
 ```markdown
-## TDD 실행 결과
-- **총 테스트**: {N}개
-- **통과**: {N}개
-- **실패**: 0개
+## TDD Execution Results
+- **Total tests**: {N}
+- **Passed**: {N}
+- **Failed**: 0
 
-## 요구사항 커버리지
-- REQ-XXX: ✅ 완전히 커버됨
-- REQ-YYY: ✅ 완전히 커버됨
+## Requirements Coverage
+- REQ-XXX: ✅ Fully covered
+- REQ-YYY: ✅ Fully covered
 ```
 
      3. **AI Summary** (optional): Provide structured bullet-point summary
@@ -395,28 +395,28 @@ After completing all methods in a layer:
 - **STORY TRACEABILITY**: Mark unit stories [x] when functionality is implemented
 - **RESPECT DEPENDENCIES**: Only implement when unit dependencies are satisfied
 
-### Warning Signs (즉시 중단하고 사용자에게 알림)
-- 🚨 Contract skeleton 없이 테스트 작성 시도
-- 🚨 테스트 없이 구현 코드 작성 시도
-- 🚨 테스트 실패를 확인하지 않고 구현 시도
-- 🚨 테스트 통과를 확인하지 않고 다음 단계 진행
-- 🚨 여러 메서드를 동시에 구현 시도
-- 🚨 REFACTOR 전에 테스트 통과 확인 안 함
+### Warning Signs (Stop immediately and notify user)
+- 🚨 Attempting to write tests without contract skeleton
+- 🚨 Attempting to write implementation code without tests
+- 🚨 Attempting implementation without confirming test failure
+- 🚨 Proceeding to next step without confirming test pass
+- 🚨 Attempting to implement multiple methods simultaneously
+- 🚨 Not confirming test pass before REFACTOR
 
 ---
 
 ## TDD Cycle Example: UserService.create()
 
-**실제 TDD 사이클 예시** - AI는 이 형식을 따라 각 메서드를 구현:
+**Actual TDD Cycle Example** - AI follows this format to implement each method:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 UserService.create() - RED-GREEN-REFACTOR
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[RED] TC-user-001: 유효한 데이터로 사용자 생성
+[RED] TC-user-001: Create user with valid data
   
-  테스트 작성:
+  Test written:
   ```python
   def test_create_user_with_valid_data():
       service = UserService()
@@ -427,14 +427,14 @@ UserService.create() - RED-GREEN-REFACTOR
       assert user.email == "john@example.com"
   ```
   
-  테스트 실행: FAILED ✗
+  Test execution: FAILED ✗
   NotImplementedError: UserService.create() not implemented
   
-  ✓ 실패 확인됨 - 다음 단계 진행
+  ✓ Failure confirmed - proceeding to next step
 
-[GREEN] 최소 구현
+[GREEN] Minimal implementation
   
-  구현:
+  Implementation:
   ```python
   class UserService:
       def __init__(self):
@@ -448,14 +448,14 @@ UserService.create() - RED-GREEN-REFACTOR
           return user
   ```
   
-  테스트 실행: PASSED ✓
+  Test execution: PASSED ✓
   
-  ✓ TC-user-001 통과
+  ✓ TC-user-001 passed
   [UPDATE] test-plan.md: TC-user-001 → 🟢 Passed
 
-[RED] TC-user-002: 중복 이메일로 생성 시도
+[RED] TC-user-002: Attempt to create with duplicate email
   
-  테스트 작성:
+  Test written:
   ```python
   def test_create_user_with_duplicate_email():
       service = UserService()
@@ -465,14 +465,14 @@ UserService.create() - RED-GREEN-REFACTOR
           service.create("Jane", "john@example.com")
   ```
   
-  테스트 실행: FAILED ✗
+  Test execution: FAILED ✗
   AssertionError: DuplicateError not raised
   
-  ✓ 실패 확인됨 - 다음 단계 진행
+  ✓ Failure confirmed - proceeding to next step
 
-[GREEN] 중복 체크 로직 추가
+[GREEN] Add duplicate check logic
   
-  구현:
+  Implementation:
   ```python
   def create(self, name: str, email: str) -> User:
       for user in self._users.values():
@@ -485,18 +485,18 @@ UserService.create() - RED-GREEN-REFACTOR
       return user
   ```
   
-  테스트 실행: PASSED ✓
+  Test execution: PASSED ✓
   
-  ✓ TC-user-002 통과
+  ✓ TC-user-002 passed
   [UPDATE] test-plan.md: TC-user-002 → 🟢 Passed
 
-[REFACTOR] 코드 개선
+[REFACTOR] Code improvement
   
-  개선 사항:
-  - 중복 체크 로직을 _check_duplicate_email() 메서드로 분리
-  - 사용자 생성 로직을 _create_user() 메서드로 분리
+  Improvements:
+  - Extract duplicate check logic into _check_duplicate_email() method
+  - Extract user creation logic into _create_user() method
   
-  리팩토링 후:
+  After refactoring:
   ```python
   def create(self, name: str, email: str) -> User:
       self._check_duplicate_email(email)
@@ -514,15 +514,15 @@ UserService.create() - RED-GREEN-REFACTOR
       return user
   ```
 
-[VERIFY] 모든 테스트 재실행
+[VERIFY] Re-run all tests
   
-  테스트 실행:
+  Test execution:
   - TC-user-001: PASSED ✓
   - TC-user-002: PASSED ✓
   
-  ✓ 리팩토링 후에도 모든 테스트 통과
+  ✓ All tests still pass after refactoring
 
-[x] UserService.create() 완료
+[x] UserService.create() Complete
 ```
 
 ---
