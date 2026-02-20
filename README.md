@@ -1,64 +1,150 @@
-# AIDLC Workshop
+# AI-DLC Korea Workflow Enhancement
 
-AIDLC (AI-Driven Development Life Cycle) 워크샵을 위한 사전 구성 프로젝트입니다.
+## Purpose
 
-## 개요
+This repository extends the [awslabs/aidlc-workflows](https://github.com/awslabs/aidlc-workflows) with field-tested enhancements and customizations for real-world use cases. It serves as a testing ground for improvements before contributing back to the upstream project.
 
-이 프로젝트는 AIDLC 워크샵 참가자들이 별도의 설정 없이 바로 실습을 시작할 수 있도록 필요한 파일과 구조를 미리 세팅해둔 템플릿입니다.
+## Contribution Rules
 
-## 시작하기
+1. **Minimal Modification**: Avoid modifying existing AI-DLC workflow files whenever possible
+2. **Override Strategy**: Only override `core-workflow.md` when absolutely necessary, targeting specific sections
+3. **Hook-Based Extensions**: Prefer using hooks and extensions to add functionality
+4. **Branch Workflow**: All work must be done in separate feature branches
+5. **Review Required**: Merges to main require approval from repository maintainers
 
-1. 이 프로젝트를 클론하거나 다운로드합니다
-2. 프로젝트 디렉토리에서 Kiro IDE 또는 Kiro CLI를 실행합니다
-3. 추가 설정 없이 AIDLC 워크플로우를 바로 시작할 수 있습니다
+---
 
-### 환경별 Agent 설정
+# AI-DLC (AI-Driven Development Life Cycle)
 
-이 프로젝트는 실행 환경에 따라 다른 Agent 설정을 사용합니다:
+AI-DLC is an intelligent software development workflow that adapts to your needs, maintains quality standards, and keeps you in control of the process. For learning more about AI-DLC Methodology, read this [blog](https://aws.amazon.com/blogs/devops/ai-driven-development-life-cycle/) and the [Method Definition Paper](https://prod.d13rzhkk8cj2z0.amplifyapp.com/) referred in it.
 
-- **Kiro IDE**: `AGENTS.md`를 이용하여 기본 Agent에 가이드 설정
-  - `.kiro/steering/` 디렉토리의 워크플로우 규칙 적용
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
+## Quick Start
 
-- **Kiro CLI**: `.kiro/agents/aidlc-worker.json`의 agent 설정을 통해 Custom Agent 생성
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
+Set up the AI-DLC rules/steering files as part of your [supported platform](#prerequisites).
 
-## 프로젝트 구조
-
-```
-aidlc-workshop/
-├── .kiro/                          # Kiro 설정
-│   ├── agents/                     # Custom Agent 설정 (CLI용)
-│   │   └── aidlc-worker.json
-│   ├── steering/                   # AIDLC 워크플로우 규칙
-│   │   └── aws-aidlc-rules/
-│   └── aws-aidlc-rule-details/     # 상세 규칙 문서
-├── AGENTS.md                       # Agent 가이드 (IDE용)
-└── README.md                       # 프로젝트 설명
+Clone this repo:
+```bash
+git clone <this-repo>
 ```
 
-## 사전 구성 내용
+Create a new project folder with a name of your choosing if you're working on a greenfield application:
+```
+mkdir <my-project>
+```
 
-- **AIDLC 워크플로우 규칙**: Inception, Construction, Operations 단계별 가이드
-- **Agent 설정**: aidlc-worker agent
-- **한국어 지원**: 기술 용어를 제외한 모든 응답이 한국어로 제공됩니다
+Assuming your project is located under the same parent folder as the cloned `aidlc-workflows`
+repo, change directory to your project folder:
+```bash
+cd <my-project>
+```
 
-## 워크플로우
+### Amazon Q Developer IDE Plugin/Extension
 
-AIDLC는 다음 단계로 구성됩니다:
+AI-DLC uses [Amazon Q Rules](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/context-project-rules.html) to implement its intelligent workflow. To activate AI-DLC in your project, copy the rules to your project's workspace under the `<project-root>/.amazonq` folder.
 
-1. **Inception Phase**: 요구사항 분석, 설계, 계획 수립
-2. **Construction Phase**: 상세 설계, 코드 생성, 빌드 및 테스트
-3. **Operations Phase**: 배포 및 운영 (향후 확장 예정)
+Copy the AI-DLC workflow to your project's workspace under the `<project-root>/.amazonq` folder:
+```
+mkdir -p .amazonq/rules 
+cp -R ../aidlc-workflows/aidlc-rules/aws-aidlc-rules .amazonq/rules/ 
+cp -R ../aidlc-workflows/aidlc-rules/aws-aidlc-rule-details .amazonq/
+```
 
-## 요구사항
+To confirm that the Amazon Q Rules are correctly loaded in your IDE, follow these steps:
 
-- Kiro IDE 또는 Kiro CLI 설치
+1. In the Amazon Q Chat window, locate the `Rules` button in the lower right corner and click on it.
+2. Verify that you see entries for `.amazonq/rules/aws-aidlc-rules` in the displayed list of rules.
 
-## 라이선스
+If you do not see the `aws-aidlc-rules` rules loaded, please check the directory where you previously issued the `mkdir` and `cp` commands.  
 
-워크샵 교육용 프로젝트입니다.
+![AI-DLC Rules in Q Developer IDE](./assets/images/q-ide-aidlc-rules-loaded.png?raw=true "AI-DLC Rules in Q Developer")
+
+### Kiro CLI
+
+AI-DLC uses [Kiro Steering Files](https://kiro.dev/docs/cli/steering/) within your project workspace to implement its intelligent workflow. To activate AI-DLC in your project, copy the rules to your project's workspace under the `<your-project-root>/.kiro/steering` folder.
+
+Copy the AI-DLC workflow to your project's workspace under the `<project-root>/.kiro` folder:
+
+```bash
+mkdir -p .kiro/steering
+cp -R ../aidlc-workflows/aidlc-rules/aws-aidlc-rules .kiro/steering/
+cp -R ../aidlc-workflows/aidlc-rules/aws-aidlc-rule-details .kiro/
+```
+
+To confirm that the AI-DLC rules are correctly loaded in your Kiro CLI, follow these steps:
+
+1. Start Kiro CLI: `kiro-cli`
+2. Check your context contents: `/context show`
+3. Verify that you see all entries for `.kiro/steering/aws-aidlc-rules` in the displayed list of rules.
+
+If you do not see the `aws-aidlc-rules` rules loaded, please check the directory where you previously issued the `mkdir` and `cp` commands.  
+
+![AI-DLC Rules in Kiro CLI](./assets/images/kiro-cli-aidlc-rules-loaded.png?raw=true "AI-DLC Rules in Kiro CLI")
+
+### Usage
+
+1. Start any software development project by stating your intent starting with the phrase "Using AI-DLC, ..." in the chat. 
+2. AI-DLC workflow automatically activates and guides you from there.
+3. Answer structured questions that AI-DLC asks you
+4. Carefully review every plan that AI generates. Provide your oversight and validation.
+5. Review the execution plan to see which stages will run
+6. Carefully review the artifacts and approve each stage to maintain control
+7. All the artifacts will be generated in the `aidlc-docs/` directory
+
+## Three-Phase Adaptive Workflow
+
+AI-DLC follows a structured three-phase approach that adapts to your project's complexity:
+
+- **🔵 INCEPTION PHASE**: Determines **WHAT** to build and **WHY**
+  - Requirements analysis and validation
+  - User story creation (when applicable)
+  - Application Design and creating units of work for parallel development
+  - Risk assessment and complexity evaluation
+
+- **🟢 CONSTRUCTION PHASE**: Determines **HOW** to build it
+  - Detailed component design
+  - Code generation and implementation
+  - Build configuration and testing strategies
+  - Quality assurance and validation
+
+- **🟡 OPERATIONS PHASE**: Deployment and monitoring (future)
+  - Deployment automation and infrastructure
+  - Monitoring and observability setup
+  - Production readiness validation
+
+## Key Features
+
+- **Adaptive Intelligence**: Only executes stages that add value to your specific request
+- **Context-Aware**: Analyzes existing codebase and complexity requirements
+- **Risk-Based**: Complex changes get comprehensive treatment, simple changes stay efficient
+- **Question-Driven**: Structured multiple-choice questions in files, not chat
+- **Always in Control**: Review execution plans and approve each phase
+
+## Prerequisites
+
+Have one of our supported platforms/tools for Assisted AI Coding installed:
+
+- [Kiro CLI](https://kiro.dev/cli/)
+- [Amazon Q Developer IDE plugin](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/q-in-IDE.html)
+- [Kiro IDE](https://kiro.dev/) (coming soon)
+
+## Tenets
+
+These are our core principles to guide our decision making.
+
+- **No duplication**. The source of truth lives in one place. If we add support for new tools or formats that require specific files, we generate them from the source rather than maintaining separate copies.
+
+- **Methodology first**. AI-DLC is fundamentally a methodology, not a tool. Users shouldn't need to install anything to get started. That said, we're open to convenience tooling (scripts, CLIs) down the road if it helps users adopt or extend the methodology.
+
+- **Reproducible**. Rules should be clear enough that different models produce similar outcomes. We know models behave differently, but the methodology should minimize variance through explicit guidance.
+
+- **Agnostic**. The methodology works with any IDE, agent, or model. We don't tie ourselves to specific tools or vendors.
+
+- **Human in the loop**. Critical decisions require explicit user confirmation. The agent proposes, the human approves.
+
+## Security
+
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.

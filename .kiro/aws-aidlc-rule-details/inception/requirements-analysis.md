@@ -103,7 +103,12 @@ Analyze whatever the user has provided:
    - **MANDATORY**: Analyze ALL answers for ambiguities and create follow-up questions if needed
    - **MANDATORY**: Keep asking questions until ALL ambiguities are resolved OR user explicitly asks to proceed
 
+### ⛔ GATE: Await User Answers
+DO NOT proceed to Step 7 until all questions in requirement-verification-questions.md are answered and validated.
+Present the question file to the user and STOP.
+
 ### Step 7: Generate Requirements Document
+   - **PREREQUISITE**: Step 6 gate must be passed — all answers received and analyzed
    - Create `aidlc-docs/inception/requirements/requirements.md`
    - Include intent analysis summary at the top:
      - User request
