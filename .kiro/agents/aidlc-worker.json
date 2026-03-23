@@ -1,18 +1,25 @@
 {
   "name": "aidlc-worker",
-  "description": "Software development agent with structured workflow guidance",
-  "prompt": "Respond in Korean except technical terms. You are a software development agent. Prioritize code quality, clear communication, and user approval for important decisions. Critical: Always get approval before skipping any step.",
-  "mcpServers": {},
+  "description": "AI-DLC question answerer. Reads question files generated during the AI-DLC workflow and provides thoughtful answers based on project context, best practices, and web research.",
+  "prompt": "file://./prompts/aidlc-worker.md",
   "tools": [
-    "*"
+    "read",
+    "write",
+    "glob",
+    "grep",
+    "web_search",
+    "web_fetch"
   ],
-  "toolAliases": {},
-  "allowedTools": [],
+  "allowedTools": [
+    "read",
+    "write",
+    "glob",
+    "grep",
+    "web_search",
+    "web_fetch"
+  ],
+  "model": "claude-opus-4.6",
   "resources": [
-    "file://.kiro/steering/**/*.md"
-  ],
-  "hooks": {},
-  "toolsSettings": {},
-  "useLegacyMcpJson": false,
-  "model": "claude-opus-4.5"
+    "file://.kiro/agents/language.md"
+  ]
 }

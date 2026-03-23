@@ -1,0 +1,36 @@
+{
+  "name": "aidlc-sync-agent",
+  "description": "AI-DLC Construction Phase Sync Agent - Performs git pull, analyzes changes, proposes merges, and refreshes design artifacts during multi-session construction.",
+  "prompt": "file://./prompts/aidlc-sync-prompt.md",
+  "tools": [
+    "read",
+    "write",
+    "glob",
+    "grep",
+    "shell"
+  ],
+  "allowedTools": [
+    "read",
+    "write",
+    "glob",
+    "grep",
+    "shell"
+  ],
+  "model": "claude-opus-4.6",
+  "resources": [
+    "file://.kiro/agents/language.md"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "allowedCommands": [
+        "git log*",
+        "git diff*",
+        "git show*",
+        "git branch*",
+        "git status*",
+        "git pull*",
+        "git merge*"
+      ]
+    }
+  }
+}
