@@ -249,17 +249,8 @@
 **Consider Fresh Start If**:
 - Multiple phases have errors
 - State file is severely corrupted
-- User requirements have changed significantly
-- Architectural decision needs to be reversed
 - User cannot provide missing information
 - Artifacts are inconsistent across phases
-
-**Before Starting Over**:
-1. Archive all existing work
-2. Document lessons learned
-3. Identify what to preserve
-4. Get user confirmation
-5. Create new execution plan
 
 ## Session Resumption Errors
 
@@ -333,7 +324,16 @@
 3. **Fail fast**: Stop immediately if critical artifacts are missing
 4. **Communicate clearly**: Tell user exactly what's missing and why it's needed
 5. **Offer options**: Regenerate, provide manually, or start fresh
-6. **Document recovery**: Log all recovery actions in audit.md
+6. **Document recovery**: Log all recovery actions in audit.md State file is severely corrupted
+- User requirements have changed significantly
+- Architectural decision needs to be reversed
+
+**Before Starting Over**:
+1. Archive all existing work
+2. Document lessons learned
+3. Identify what to preserve
+4. Get user confirmation
+5. Create new execution plan
 
 ## Logging Requirements
 

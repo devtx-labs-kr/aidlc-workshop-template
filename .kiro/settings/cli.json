@@ -1,9 +1,0 @@
-{
-  "chat.enableCheckpoint": true,
-  "chat.enableContextUsageIndicator": true,
-  "integrations.iterm.disabled": false,
-  "mcp.loadedBefore": true,
-  "chat.enableTodoList": true,
-  "chat.enableKnowledge": true,
-  "chat.enableTangentMode": true
-}
