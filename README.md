@@ -12,39 +12,20 @@ AIDLC (AI-Driven Development Life Cycle) 워크샵을 위한 사전 구성 프�
 2. 프로젝트 디렉토리에서 Kiro IDE 또는 Kiro CLI를 실행합니다
 3. 추가 설정 없이 AIDLC 워크플로우를 바로 시작할 수 있습니다
 
-### 환경별 Agent 설정
-
-이 프로젝트는 실행 환경에 따라 다른 Agent 설정을 사용합니다:
-
-- **Kiro IDE**: `AGENTS.md`를 이용하여 기본 Agent에 가이드 설정
-  - `.kiro/steering/` 디렉토리의 워크플로우 규칙 적용
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
-
-- **Kiro CLI**: `.kiro/agents/aidlc-worker.json`의 agent 설정을 통해 Custom Agent 생성
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
-
 ## 프로젝트 구조
 
 ```
 aidlc-workshop/
 ├── .kiro/                          # Kiro 설정
-│   ├── agents/                     # Custom Agent 설정 (CLI용)
-│   │   └── aidlc-worker.json
 │   ├── steering/                   # AIDLC 워크플로우 규칙
 │   │   └── aws-aidlc-rules/
 │   └── aws-aidlc-rule-details/     # 상세 규칙 문서
-├── AGENTS.md                       # Agent 가이드 (IDE용)
 └── README.md                       # 프로젝트 설명
 ```
 
 ## 사전 구성 내용
 
 - **AIDLC 워크플로우 규칙**: Inception, Construction, Operations 단계별 가이드
-- **Agent 설정**: aidlc-worker agent
 - **한국어 지원**: 기술 용어를 제외한 모든 응답이 한국어로 제공됩니다
 
 ## 워크플로우
