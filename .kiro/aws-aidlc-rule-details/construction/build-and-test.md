@@ -9,30 +9,10 @@
 
 ---
 
-## Step 0: Detect TDD Artifacts (MANDATORY)
-
-**Check for TDD artifacts** in `aidlc-docs/construction/plans/`:
-- Look for `{unit-name}-test-plan.md` files
-- Look for `{unit-name}-contracts.md` files
-
-**If TDD artifacts found**:
-- TDD was used for code generation
-- Unit tests already executed and passed (🟢 status in test-plan.md)
-- Load test results from `{unit-name}-test-plan.md`
-- Skip re-running unit tests that are already 🟢 Passed
-- Focus on integration tests and other test types
-
-**If NO TDD artifacts found**:
-- Standard code generation was used
-- Proceed with full test execution
-
----
-
 ## Step 1: Analyze Testing Requirements
 
 Analyze the project to determine appropriate testing strategy:
 - **Unit tests**: Already generated per unit during code generation
-  - **If TDD**: Already executed and passed - verify only
 - **Integration tests**: Test interactions between units/services
 - **Performance tests**: Load, stress, and scalability testing
 - **End-to-end tests**: Complete user workflows
@@ -100,14 +80,6 @@ Create `aidlc-docs/construction/build-and-test/unit-test-instructions.md`:
 # Unit Test Execution
 
 ## Run Unit Tests
-
-**If TDD was used** (test-plan.md exists):
-- Unit tests already executed during Code Generation
-- All tests should be 🟢 Passed in `{unit-name}-test-plan.md`
-- Run verification only to confirm tests still pass after any final changes
-
-**If Standard code generation was used**:
-- Execute full unit test suite
 
 ### 1. Execute All Unit Tests
 \`\`\`bash
@@ -334,37 +306,43 @@ Update `aidlc-docs/aidlc-state.md`:
 
 ## Step 9: Present Results to User
 
-Present comprehensive message:
+Present completion message in this structure:
+     1. **Completion Announcement** (mandatory): Always start with this:
 
+```markdown
+# 🔨 Build and Test Complete
 ```
-"🔨 Build and Test Complete!
 
-**Build Status**: [Success/Failed]
+     2. **AI Summary** (optional): Provide structured bullet-point summary of build and test results
+        - Format: "Build and test has completed with the following results:"
+        - List build status and artifacts
+        - List test results by category (unit, integration, performance, etc.)
+        - List generated instruction files
+        - DO NOT include workflow instructions ("please review", "let me know", "proceed to next phase", "before we proceed")
+        - Keep factual and content-focused
+     3. **Formatted Workflow Message** (mandatory): Always end with this exact format:
 
-**Test Results**:
-✅ Unit Tests: [X] passed
-✅ Integration Tests: [X] scenarios passed
-✅ Performance Tests: [Status]
-✅ Additional Tests: [Status]
+```markdown
+> **📋 <u>**REVIEW REQUIRED:**</u>**  
+> Please examine the build and test summary at: `aidlc-docs/construction/build-and-test/build-and-test-summary.md`
 
-**Generated Files**:
-1. ✅ build-instructions.md
-2. ✅ unit-test-instructions.md
-3. ✅ integration-test-instructions.md
-4. ✅ performance-test-instructions.md (if applicable)
-5. ✅ [additional test files as needed]
-6. ✅ build-and-test-summary.md
 
-Review the summary in aidlc-docs/construction/build-and-test/build-and-test-summary.md
 
-**Ready to proceed to Operations stage for deployment planning?""
+> **🚀 <u>**WHAT'S NEXT?**</u>**
+>
+> **You may:**
+>
+> 🔧 **Request Changes** - Ask for modifications to the build and test instructions based on your review
+> ✅ **Approve & Continue** - Approve build and test results and proceed to **Operations**
+
+---
 ```
 
 ---
 
 ## Step 10: Log Interaction
 
-**MANDATORY**: Log the phase completion in `aidlc-docs/audit.md`:
+**MANDATORY**: Log the stage completion in `aidlc-docs/audit.md`:
 
 ```markdown
 ## Build and Test Stage
