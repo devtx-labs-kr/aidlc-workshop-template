@@ -1,0 +1,51 @@
+name: Sync AIDLC Rules
+
+on:
+  schedule:
+    # 매일 UTC 00:00 (KST 09:00) 에 실행
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v5
+
+      - name: Checkout upstream aidlc-workflows
+        uses: actions/checkout@v5
+        with:
+          repository: awslabs/aidlc-workflows
+          path: upstream
+
+      - name: Verify upstream source paths exist
+        run: |
+          test -d upstream/aidlc-rules/aws-aidlc-rules || { echo "::error::upstream aws-aidlc-rules path missing"; exit 1; }
+          test -d upstream/aidlc-rules/aws-aidlc-rule-details || { echo "::error::upstream aws-aidlc-rule-details path missing"; exit 1; }
+
+      - name: Sync AIDLC rule files
+        run: |
+          mkdir -p .kiro/steering
+          rsync -a --delete upstream/aidlc-rules/aws-aidlc-rules/ .kiro/steering/aws-aidlc-rules/
+          rsync -a --delete upstream/aidlc-rules/aws-aidlc-rule-details/ .kiro/aws-aidlc-rule-details/
+          rm -rf upstream
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/sync-aidlc-rules
+          commit-message: "chore: sync AIDLC rules from awslabs/aidlc-workflows"
+          title: "chore: sync AIDLC rules from upstream"
+          body: |
+            awslabs/aidlc-workflows 원본 레포의 최신 변경사항을 자동 동기화합니다.
+
+            - 소스: https://github.com/awslabs/aidlc-workflows
+            - 대상 경로:
+              - `.kiro/steering/aws-aidlc-rules/`
+              - `.kiro/aws-aidlc-rule-details/`
+          labels: automated, aidlc-sync
